@@ -1,59 +1,43 @@
-var kalturaDirectivesModule = angular.module('Kaltura.directives', []);
+angular
+  .module(`Kaltura.directives`, [])
+  .directive(`kalturaPlayer`,
+  [
+    function() {
+      return {
+        restrict: `E`,
+        template: `<div id="kaltura_player_{{ id }}" style="width:{{ width }}; height:{{ height }}; background-color: black"></div>`,
+        scope: { video: `=`, height: `@`, width: `@` },
+        controller: function($scope) {
+          if (document.getElementById(`kalturaLib`) === null){
+            const s = document.createElement(`script`);
+            s.src = `http://cdnapi.kaltura.com/p/${ $scope.video.pid }/sp/${ $scope.video.pid }00/embedIframeJs/uiconf_id/${ $scope.video.uiconfid }/partner_id/${ $scope.video.pid }`;
+            s.id = `kalturaLib`;
+            s.async = false;
+            document.head.appendChild(s);
+          }
 
-kalturaDirectivesModule.directive('kalturaPlayer', ['$rootScope', function($rootScope) {
-	return {
+          const intervalID = setInterval(function(){
+            if (typeof window.kWidget !== `undefined`){
+              clearInterval(intervalID);
 
-		restrict: 'E',
-		template: '<div id="kaltura_player_{{id}}" style="width:{{width}}; height:{{height}}; background-color: black"></div>',
-		scope: {},
+              const target = $scope.id ? `kaltura_player_${ $scope.id }` : `kaltura_player_`;
+              const flashvars = $scope.video.flashvars ? JSON.parse($scope.video.flashvars) : {};
 
-		compile: function(element, attributes) {
-
-			if (document.getElementById("kalturaLib") === null){
-				var s = document.createElement('script');
-				s.src = 'http://cdnapi.kaltura.com/p/'+attributes.pid+'/sp/'+attributes.pid+'00/embedIframeJs/uiconf_id/'+attributes.uiconfid+'/partner_id/'+attributes.pid;
-				s.id = "kalturaLib";
-				s.async = false;
-				document.head.appendChild(s);
-			}
-
-			var linkFunction = function($scope, element, attributes) {
-				if (attributes.width){
-					$scope.width = attributes.width;
-				}
-				if (attributes.height){
-					$scope.height = attributes.height;
-				}
-				if (attributes.id){
-					$scope.id = attributes.id;
-				}
-
-
-				if (!$scope.kdp){
-					var intervalID = setInterval(function(){
-						if (typeof window.kWidget !== "undefined"){
-							clearInterval(intervalID);
-
-							var target = attributes.id ? "kaltura_player_"+attributes.id : "kaltura_player_";
-							var flashvars = attributes.flashvars ? JSON.parse(attributes.flashvars) : {};
-
-							window.kWidget.embed({
-								"targetId": target,
-								"wid": "_"+attributes.pid,
-								"uiconf_id": attributes.uiconfid,
-								"flashvars": flashvars,
-								"cache_st": Math.random(),
-								"entry_id": attributes.entryid,
-								"readyCallback": function(playerID){
-									$scope.kdp = document.getElementById(playerID);
-									$rootScope.$broadcast('kalturaPlayerReady', $scope.kdp, attributes.id);
-								}
-							});
-						}
-					},50);
-				}
-			}
-			return linkFunction;
-		}
-	}
-}]);
+              window.kWidget.embed({
+                "targetId": target,
+                "wid": `_${ $scope.video.pid }`,
+                "uiconf_id": $scope.video.uiconfid,
+                "flashvars": flashvars,
+                "cache_st": Math.random(),
+                "entry_id": $scope.video.entryid,
+                "readyCallback": function(playerID) {
+                  $scope.kdp = document.getElementById(playerID);
+                }
+              });
+            }
+          }, 50);
+        }
+      };
+    }
+  ]
+);
