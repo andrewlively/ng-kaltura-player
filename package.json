@@ -1,0 +1,28 @@
+{
+  "name": "ng-kaltura-player",
+  "version": "1.0.0",
+  "description": "Angular.js Directive for playing Kaltura videos",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "babel": "./node_modules/.bin/babel ng-kaltura-player.js --out-file index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrewlively/ng-kaltura-player.git"
+  },
+  "keywords": [
+    "Angular.js",
+    "Kaltura"
+  ],
+  "author": "Andrew Lively <livelyar@ucmail.uc.edu>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/andrewlively/ng-kaltura-player/issues"
+  },
+  "homepage": "https://github.com/andrewlively/ng-kaltura-player#readme",
+  "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "babel-preset-es2015": "^6.9.0"
+  }
+}

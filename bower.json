@@ -1,0 +1,22 @@
+{
+  "name": "ng-kaltura-player",
+  "main": "index.js",
+  "homepage": "https://github.com/andrewlively/ng-kaltura-player",
+  "authors": [
+    "Andrew Lively <livelyar@ucmail.uc.edu>"
+  ],
+  "description": "Angular Directive for playing Kaltura videos",
+  "moduleType": [],
+  "keywords": [
+    "Angular.js",
+    "Kaltura"
+  ],
+  "license": "Apache-2.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
