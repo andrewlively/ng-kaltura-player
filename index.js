@@ -4,7 +4,7 @@ angular.module("Kaltura.directives", []).directive("kalturaPlayer", [function ()
   return {
     restrict: "E",
     template: "<div id=\"kaltura_player_{{ id }}\" style=\"width:{{ width }}; height:{{ height }}; background-color: black\"></div>",
-    scope: { video: "=", height: "@", width: "@", secure: "@secure" },
+    scope: { id: "@", video: "=", height: "@", width: "@", secure: "@secure" },
     controller: function controller($scope) {
       if (document.getElementById("kalturaLib") === null && !window.kWidget) {
         var secure = $scope.secure === "true";

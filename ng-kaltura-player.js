@@ -6,7 +6,7 @@ angular
       return {
         restrict: `E`,
         template: `<div id="kaltura_player_{{ id }}" style="width:{{ width }}; height:{{ height }}; background-color: black"></div>`,
-        scope: { video: `=`, height: `@`, width: `@`, secure: `@secure` },
+        scope: { id: `@`, video: `=`, height: `@`, width: `@`, secure: `@secure` },
         controller: function($scope) {
           if (document.getElementById(`kalturaLib`) === null && !window.kWidget){
             const secure = $scope.secure === `true`;
