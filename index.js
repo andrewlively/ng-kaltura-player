@@ -4,13 +4,14 @@ angular.module("Kaltura.directives", []).directive("kalturaPlayer", [function ()
   return {
     restrict: "E",
     template: "<div id=\"kaltura_player_{{ id }}\" style=\"width:{{ width }}; height:{{ height }}; background-color: black\"></div>",
-    scope: { id: "@", video: "=", height: "@", width: "@", secure: "@secure" },
+    scope: { id: "@", baseUrl: "@", video: "=", height: "@", width: "@", secure: "@secure" },
     controller: function controller($scope) {
       if (document.getElementById("kalturaLib") === null && !window.kWidget) {
         var secure = $scope.secure === "true";
+        var baseUrl = $scope.baseUrl || "http" + (secure ? "s" : "") + "://cdnapi" + (secure ? "sec" : "") + ".kaltura.com";
 
         var s = document.createElement("script");
-        s.src = "http" + (secure ? "s" : "") + "://cdnapi" + (secure ? "sec" : "") + ".kaltura.com/p/" + $scope.video.pid + "/sp/" + $scope.video.pid + "00/embedIframeJs/uiconf_id/" + $scope.video.uiconfid + "/partner_id/" + $scope.video.pid;
+        s.src = baseUrl + "/p/" + $scope.video.pid + "/sp/" + $scope.video.pid + "00/embedIframeJs/uiconf_id/" + $scope.video.uiconfid + "/partner_id/" + $scope.video.pid;
         s.id = "kalturaLib";
         s.async = false;
         document.head.appendChild(s);
