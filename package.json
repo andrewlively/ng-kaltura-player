@@ -1,6 +1,6 @@
 {
   "name": "ng-kaltura-player",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Angular.js Directive for playing Kaltura videos",
   "main": "index.js",
   "scripts": {
