@@ -5,7 +5,7 @@ angular.module("Kaltura.directives", []).directive("kalturaPlayer", [function ()
     restrict: "E",
     template: "<div id=\"kaltura_player_{{ id }}\" style=\"width:{{ width }}; height:{{ height }}; background-color: black\"></div>",
     scope: { id: "@", baseUrl: "@", video: "=", height: "@", width: "@", secure: "@secure" },
-    controller: function controller($scope) {
+    controller: ["$scope", function ($scope) {
       if (document.getElementById("kalturaLib") === null && !window.kWidget) {
         var secure = $scope.secure === "true";
         var baseUrl = $scope.baseUrl || "http" + (secure ? "s" : "") + "://cdnapi" + (secure ? "sec" : "") + ".kaltura.com";
@@ -39,6 +39,6 @@ angular.module("Kaltura.directives", []).directive("kalturaPlayer", [function ()
           }
         });
       }, 50);
-    }
+    }]
   };
 }]);

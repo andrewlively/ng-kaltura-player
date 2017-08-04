@@ -7,7 +7,7 @@ angular
         restrict: `E`,
         template: `<div id="kaltura_player_{{ id }}" style="width:{{ width }}; height:{{ height }}; background-color: black"></div>`,
         scope: { id: `@`, baseUrl: `@`, video: `=`, height: `@`, width: `@`, secure: `@secure` },
-        controller: function($scope) {
+        controller: [`$scope`, function($scope) {
           if (document.getElementById(`kalturaLib`) === null && !window.kWidget){
             const secure = $scope.secure === `true`;
             const baseUrl = $scope.baseUrl || `http${ secure ? `s` : `` }://cdnapi${ secure ? `sec`: `` }.kaltura.com`;
@@ -41,7 +41,7 @@ angular
               }
             });
           }, 50);
-        }
+        }]
       };
     }
   ]
